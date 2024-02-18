@@ -2,7 +2,6 @@
 
 @section('container')
     <h1>Ini adalah halaman students</h1>
-    <a style="align-item: center; margin-bottom: 10px;" type="button" class="btn btn-primary" href="/student/create">Add New Student</a>
     @if(session('success'))
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
         <symbol id="check-circle-fill" viewBox="0 0 16 16">
@@ -37,12 +36,6 @@
                         <td>{{ $student->kelas->kelas }}</td>
                         <td>
                             <a type="button" class="btn btn-primary" href="/student/detail/{{ $student->id }}">Detail</a>
-                            <a type="button" class="btn btn-warning" href="/student/edit/{{ $student->id}}">Edit</a>
-                            <form action="/student/delete/{{ $student->id }}" method="post" class="d-inline" onsubmit="return confirmDelete()">
-                                @method('delete')
-                                @csrf
-                                <button class="btn btn-danger">Delete</button>
-                            </form>
                         </td>
                     </tr>
                 @endforeach 
@@ -50,8 +43,3 @@
         </table>
     </div>
 @endsection
-<script>
-    function confirmDelete() {
-        return confirm('Apakah anda yakin ingin menghapus data {{$student->nama}} ?');
-    }
-</script>

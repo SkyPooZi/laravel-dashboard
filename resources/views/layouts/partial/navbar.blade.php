@@ -28,7 +28,7 @@
           </a>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item" href="/dashboard">
+              <a class="dropdown-item" href="/dashboard/all/all">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                   class="bi bi-layout-text-sidebar-reverse" viewBox="0 0 16 16">
                   <path
