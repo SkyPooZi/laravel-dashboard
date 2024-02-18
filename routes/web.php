@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\StudentsController;
 use Illuminate\Support\Facades\Route;
@@ -70,3 +71,27 @@ Route::group(["prefix" => "/register"], function(){
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::group(["prefix" => "/dashboard"], function(){
+    Route::group(["prefix" => "/all"], function(){
+        Route::get('/all', [DashboardController::class,'all'])->name('dashboard.all.all'); //view
+    });
+    Route::group(["prefix" => "/student"], function(){
+        Route::get('/all', [DashboardController::class,'student'])->name('dashboard.student.all'); //view
+        Route::get('/detail/{student}', [DashboardController::class,'studentShow']); //detail
+        Route::get('/create', [DashboardController::class,'studentCreate']); //create data
+        Route::post('/add', [DashboardController::class,'studentStore']); // add data
+        Route::delete('/delete/{student}', [DashboardController::class,'studentDestory']); // delete data
+        Route::get('/edit/{student}', [DashboardController::class,'studentEdit']); // provide form edit
+        Route::post('/update/{student}', [DashboardController::class,'studentUpdate']); // edit data
+    });
+    Route::group(["prefix" => "/kelas"], function(){
+        Route::get('/all', [DashboardController::class,'kelas'])->name('dashboard.kelas.all'); //view
+        Route::get('/detail/{kelas}', [DashboardController::class,'kelasShow']); //detail
+        Route::get('/create', [DashboardController::class,'kelasCreate']); //create data
+        Route::post('/add', [DashboardController::class,'kelasStore']); // add data
+        Route::delete('/delete/{kelas}', [DashboardController::class,'kelasDestory']); // delete data
+        Route::get('/edit/{kelas}', [DashboardController::class,'kelasEdit']); // provide form edit
+        Route::post('/update/{kelas}', [DashboardController::class,'kelasUpdate']); // edit data
+    });
+});
