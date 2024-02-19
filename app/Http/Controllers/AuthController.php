@@ -11,6 +11,8 @@ class AuthController extends Controller
 {
     public function register() 
     {
+        if(Auth::check()) return redirect()->route('dashboard.student.all');
+
         return view ('register.index', [
             "title" => "Register",
         ]);
@@ -34,13 +36,11 @@ class AuthController extends Controller
 
     public function login() 
     {
+        if(Auth::check()) return redirect()->route('dashboard.student.all');
+
         return view ('login.index', [
             "title" => "Login",
         ]);
-
-        // if (Auth::check()) {
-            
-        // }
     }
 
     public function loginStore(Request $request)
@@ -59,9 +59,9 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout(); // Melakukan logout pengguna
-        $request->session()->invalidate(); // Menghapus sesi pengguna
-        $request->session()->regenerateToken(); // Menghasilkan token sesi yang baru
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return redirect('/student/all')->with('success', 'Logout berhasil !');
     }

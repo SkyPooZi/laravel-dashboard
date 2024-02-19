@@ -3,9 +3,6 @@
 @section('container')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Add New Student</h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-
-    </div>
 </div>
 
 <form action="/dashboard/student/add" method="post">
@@ -16,8 +13,8 @@
             aria-label="nis" aria-describedby="basic-addon1" required>
     </div>
     <div class="mb-3">
-        <label for="nama" class="form-label">Nama</label>
-        <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama') }}" placeholder="Nama"
+        <label for="nama" class="form-label">Name</label>
+        <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama') }}" placeholder="Name"
             aria-label="nama" aria-describedby="basic-addon1" required>
     </div>
     <div class="mb-3">
@@ -27,7 +24,7 @@
             aria-describedby="basic-addon1" required>
     </div>
     <div class="mb-3">
-        <label for="kelas" class="form-label">Kelas</label>
+        <label for="kelas" class="form-label">Class</label>
         <!-- <input type="text" class="form-control" id="kelas" name="kelas" value="{{ old('kelas') }}" placeholder="Kelas" aria-label="kelas" aria-describedby="basic-addon1" required> -->
         <select class="form-select" name="kelas_id" id="">
             @foreach ($kelass as $kelas)
@@ -36,9 +33,9 @@
         </select>
     </div>
     <div class="mb-3">
-        <label for="alamat" class="form-label">Alamat</label>
+        <label for="alamat" class="form-label">Address</label>
         <input type="text" class="form-control" id="alamat" name="alamat" value="{{ old('alamat') }}"
-            placeholder="Alamat" aria-label="alamat" aria-describedby="basic-addon1" required>
+            placeholder="Address" aria-label="alamat" aria-describedby="basic-addon1" required>
     </div>
     <button type="submit" class="btn btn-primary">Add Student</button>
 </form>

@@ -3,12 +3,10 @@
 @section('container')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
   <h1 class="h2">Class Dashboard</h1>
-  <div class="btn-toolbar mb-2 mb-md-0">
-  </div>
 </div>
 
 <a style="align-item: center; margin-bottom: 10px;" type="button" class="btn btn-primary" href="/dashboard/kelas/create">Add New
-  Kelas</a>
+  Class</a>
 @if(session('success'))
 <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
   <symbol id="check-circle-fill" viewBox="0 0 16 16">
