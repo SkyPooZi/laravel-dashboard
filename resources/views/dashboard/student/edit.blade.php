@@ -3,8 +3,6 @@
 @section('container')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Edit Student Data</h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-    </div>
 </div>
 
 <form action="/dashboard/student/update/ {{ $student->id }}" method="post">
@@ -15,9 +13,9 @@
             placeholder="NIS" aria-label="nis" aria-describedby="basic-addon1" readonly>
     </div>
     <div class="mb-3">
-        <label for="nama" class="form-label">Nama</label>
+        <label for="nama" class="form-label">Name</label>
         <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama', $student->nama) }}"
-            placeholder="Nama" aria-label="nama" aria-describedby="basic-addon1">
+            placeholder="Name" aria-label="nama" aria-describedby="basic-addon1">
     </div>
     <div class="mb-3">
         <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
@@ -26,7 +24,7 @@
             aria-label="tanggal_lahir Lahir" aria-describedby="basic-addon1">
     </div>
     <div class="mb-3">
-        <label for="kelas" class="form-label">Kelas</label>
+        <label for="kelas" class="form-label">Class</label>
         <!-- <input type="text" class="form-control" id="kelas" name="kelas" value="{{ old('kelas', $student->kelas) }}" placeholder="Kelas" aria-label="kelas" aria-describedby="basic-addon1"> -->
         <select class="form-select" name="kelas_id" id="">
             @foreach ($kelass as $kelas)
@@ -36,9 +34,9 @@
         </select>
     </div>
     <div class="mb-3">
-        <label for="alamat" class="form-label">Alamat</label>
+        <label for="alamat" class="form-label">Address</label>
         <input type="text" class="form-control" id="alamat" name="alamat" value="{{ old('alamat', $student->alamat) }}"
-            placeholder="Alamat" aria-label="alamat" aria-describedby="basic-addon1">
+            placeholder="Address" aria-label="alamat" aria-describedby="basic-addon1">
     </div>
     <button type="submit" class="btn btn-primary">Edit Student</button>
 </form>

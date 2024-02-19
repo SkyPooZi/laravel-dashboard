@@ -5,26 +5,46 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\kelas;
 use App\Models\Student;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function all() 
     {
+        if(!Auth::check()) return redirect()->route('student.all');
+
         return view ('dashboard.all.all', [
             "title" => "Dashboard",
         ]);
     }
 
-    public function student() 
+    public function student(Request $request) 
     {
+        if(!Auth::check()) return redirect()->route('student.all');
+
+        $selectedClass = $request->input('kelas_id');
+        $searchName = $request->input('search');
+
+        $students = Student::when($selectedClass, function ($query) use ($selectedClass) {
+            return $query->where('kelas_id', $selectedClass);
+        })->when($searchName, function ($query) use ($searchName) {
+            $query->where(function ($query) use ($searchName) {
+                $query->where('nama', 'like', '%' . $searchName . '%');
+            });
+        })->latest()
+        ->paginate(5);
+
         return view ('dashboard.student.all', [
             "title" => "Dashboard",
-            "students" => Student::all(),
+            "students" => $students,
+            "kelass" => Kelas::all()
         ]);
     }
 
     public function studentShow($student)
     {
+        if(!Auth::check()) return redirect()->route('student.all');
+
         return view ('.dashboard.student.detail', [
             "title" => "detail-student",
             "student" => Student::find($student),
@@ -33,6 +53,8 @@ class DashboardController extends Controller
 
     public function studentCreate() 
     {
+        if(!Auth::check()) return redirect()->route('student.all');
+
         return view ('dashboard.student.create', [
             "title" => "Students",
             "kelass" => Kelas::all()
@@ -41,6 +63,8 @@ class DashboardController extends Controller
 
     public function studentStore(Request $request)
     {
+        if(!Auth::check()) return redirect()->route('student.all');
+
         $validateData = $request->validate([
             'nis'           => 'required|max:255',
             'nama'          => 'required|max:255',
@@ -57,6 +81,8 @@ class DashboardController extends Controller
 
     public function studentDestory(Student $student) 
     {
+        if(!Auth::check()) return redirect()->route('student.all');
+
         $result = Student::destroy($student->id);
         if ($result) {
             return redirect('/dashboard/student/all')->with('success', 'Data berhasil dihapus !');
@@ -65,6 +91,8 @@ class DashboardController extends Controller
 
     public function studentEdit(Student $student)
     {
+        if(!Auth::check()) return redirect()->route('student.all');
+
         return view ('dashboard.student.edit', [
             "title" => "edit-data",
             "student" => $student,
@@ -74,6 +102,8 @@ class DashboardController extends Controller
 
     public function studentUpdate(Request $request, Student $student)
     {
+        if(!Auth::check()) return redirect()->route('student.all');
+
         $validateData = $request->validate([
             'nis'           => 'required|max:255',
             'nama'          => 'required|max:255',
@@ -90,6 +120,8 @@ class DashboardController extends Controller
 
     public function kelas() 
     {
+        if(!Auth::check()) return redirect()->route('student.all');
+
         return view ('dashboard.kelas.all', [
             "title" => "Dashboard",
             "kelass" => kelas::all(),
@@ -98,6 +130,8 @@ class DashboardController extends Controller
 
     public function kelasShow($kelas)
     {
+        if(!Auth::check()) return redirect()->route('student.all');
+
         return view ('dashboard.kelas.detail', [
             "title" => "detail-kelas",
             "kelas" => kelas::find($kelas),
@@ -106,6 +140,8 @@ class DashboardController extends Controller
 
     public function kelasCreate() 
     {
+        if(!Auth::check()) return redirect()->route('student.all');
+
         return view ('dashboard.kelas.create', [
             "title" => "Kelas",
             "kelass" => kelas::all()
@@ -114,6 +150,8 @@ class DashboardController extends Controller
 
     public function kelasStore(Request $request)
     {
+        if(!Auth::check()) return redirect()->route('student.all');
+
         $validateData = $request->validate([
             'kelas' => 'required|max:255',
         ]);
@@ -126,6 +164,8 @@ class DashboardController extends Controller
 
     public function kelasDestory(kelas $kelas) 
     {
+        if(!Auth::check()) return redirect()->route('student.all');
+
         $result = kelas::destroy($kelas->id);
         if ($result) {
             return redirect('/dashboard/kelas/all')->with('success', 'Data berhasil dihapus !');
@@ -134,6 +174,8 @@ class DashboardController extends Controller
 
     public function kelasEdit(kelas $kelas)
     {
+        if(!Auth::check()) return redirect()->route('student.all');
+
         return view ('dashboard.kelas.edit', [
             "title" => "edit-data",
             "kelas" => $kelas,
@@ -142,6 +184,8 @@ class DashboardController extends Controller
 
     public function kelasUpdate(Request $request, kelas $kelas)
     {
+        if(!Auth::check()) return redirect()->route('student.all');
+
         $validateData = $request->validate([
             'kelas' => 'required|max:255',
         ]);
